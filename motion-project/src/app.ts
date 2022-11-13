@@ -1,11 +1,13 @@
+import { Component } from './components/component.js';
 import { ImageComponent } from './components/page/item/image.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { TodoComponent } from './components/page/item/todo.js';
 import { VideoComponent } from './components/page/item/video.js';
-import { PageComponent } from './components/page/page.js';
+import { Composable, PageComponent } from './components/page/page.js';
 
 class App {
-	private readonly page: PageComponent;
+	// page는 Component와 Composable 인터페이스를 구현한 요소이다.
+	private readonly page: Component & Composable;
 	constructor(appRoot: HTMLElement) {
 		// For Page
 		this.page = new PageComponent();
@@ -16,22 +18,22 @@ class App {
 			'Image Title',
 			'https://picsum.photos/600/300'
 		);
-		image.attatchTo(appRoot, 'beforeend');
+		this.page.addChild(image);
 
 		// For Video
 		const video = new VideoComponent(
 			'Video Title',
 			'https://youtu.be/EQn2hDlF1T8'
 		);
-		video.attatchTo(appRoot, 'beforeend');
+		this.page.addChild(video);
 
 		// For Note
 		const note = new NoteComponent('Note Title', 'Note Body');
-		note.attatchTo(appRoot, 'beforeend');
+		this.page.addChild(note);
 
 		// For Todo
 		const todo = new TodoComponent('Todo Title', 'Todo Item');
-		todo.attatchTo(appRoot, 'beforeend');
+		this.page.addChild(todo);
 	}
 }
 
