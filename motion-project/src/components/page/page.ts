@@ -4,10 +4,13 @@ export interface Composable {
 	addChild(child: Component): void;
 }
 
+type OnCloseListener = () => void;
+
 class PageItemComponent
 	extends BaseComponent<HTMLElement>
 	implements Composable
 {
+	private closeListener?: OnCloseListener;
 	constructor() {
 		super(`
 			<li class="page-item">
@@ -17,6 +20,11 @@ class PageItemComponent
 				</div>
 			</li>
 		`);
+
+		const closeBtn = this.element.querySelector('.close')! as HTMLButtonElement;
+		closeBtn.onclick = () => {
+			this.closeListener && this.closeListener();
+		};
 	}
 
 	// 정확히 어떤 컴포넌트인지는 모르지만, child는 Component 인터페이스를 구현하는 것을 받는다.
@@ -25,6 +33,9 @@ class PageItemComponent
 			'.page-item__body'
 		)! as HTMLElement;
 		child.attatchTo(container);
+	}
+	setOnCloseListener(listener: OnCloseListener) {
+		this.closeListener = listener;
 	}
 }
 
@@ -40,5 +51,8 @@ export class PageComponent
 		const item = new PageItemComponent();
 		item.addChild(section);
 		item.attatchTo(this.element, 'beforeend');
+		item.setOnCloseListener(() => {
+			item.removeFrom(this.element);
+		});
 	}
 }
