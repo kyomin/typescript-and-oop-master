@@ -3,14 +3,18 @@ import { ImageComponent } from './components/page/item/image.js';
 import { NoteComponent } from './components/page/item/note.js';
 import { TodoComponent } from './components/page/item/todo.js';
 import { VideoComponent } from './components/page/item/video.js';
-import { Composable, PageComponent } from './components/page/page.js';
+import {
+	Composable,
+	PageComponent,
+	PageItemComponent,
+} from './components/page/page.js';
 
 class App {
 	// page는 Component와 Composable 인터페이스를 구현한 요소이다.
 	private readonly page: Component & Composable;
 	constructor(appRoot: HTMLElement) {
 		// For Page
-		this.page = new PageComponent();
+		this.page = new PageComponent(PageItemComponent);
 		this.page.attatchTo(appRoot);
 
 		// For Image
