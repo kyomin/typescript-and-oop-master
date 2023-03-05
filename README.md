@@ -79,4 +79,55 @@
 {
  "Javascript.implicitProjectConfig.checkJs": true
 }
-```
+```   
+   
+이제 타입이 안전하지 않은 줄에는 에디터에서 해당 코드를 에러로 표시한다.   
+이러한 에러 메시지는 에디터에만 표시되며 코드에는 영향을 주지 않는다.   
+`@ts-ignore - 해당 줄`   
+`@ts-nocheck - 전체`   
+해당 코드를 추가하여 타입 체크를 선택적으로 비활성화 할 수도 있다.
+   
+### 자바스크립트용 타입스크립트 컴파일러 사용
+타입스크립트 컴파일러를 설치하고 스크립트를 실행하거나 설정한다.   
+tsconfig.json 파일을 사용하여 컴파일러 설정을 세팅한다.   
+   
+```javascript
+{
+ "compilerOptions": {
+  "allowJs": true
+  "checkJs": false
+  "outDir": "./dist"
+  "rootDir": "./src"
+  "strict": false
+ }
+}
+```   
+   
+"allowJs": true // 타입스크립트 컴파일러를 통해 실행할 자바스크립트 파일을 선택   
+"checkJs": false // 자바스크립트 파일에 대한 타입 체크   
+   
+타입스크립트 컴파일러를 실행하고 자바스크립트를 확인한다.   
+"checkJs": true 타입 체크를 활성화하고 타입 체크를 진행한다.
+   
+### 자바스크립트 파일을 타입스크립트 파일로 변환
+자바스크립트에서 타입이 안전한 파일인지 확인한 후 하나씩 타입스크립트 파일로 변환한다(.js -> .ts).   
+allowJs를 활성화 했으므로 한 번에 모두 이동할 필요 없이 점진적으로 이동할 수 있다.   
+이미 자바스크립트 코드에 대한 타입 체크를 실행했으므로 업데이트가 너무 많지 않을 것이다.
+   
+### 엄격한 타입 체크
+타입 체크를 더 엄격하게 하는 몇 가지 옵션이 있다.   
+   
+```javascript
+{
+ "compilerOptions": {
+ "noImplicitAny": true,
+ "strictNullChecks": true,
+ "strictFunctionTypes": true,
+ "strictBindCallApply": true,
+ "strictPropertyInitialization": true,
+ "noImplicitThis": true,
+ "alwaysStrict": true
+}
+```   
+   
+하나씩 활성화 해 문제를 해결한다.
