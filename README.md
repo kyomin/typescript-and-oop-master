@@ -186,3 +186,168 @@ enum Shoes {
 - Void: 변수에는 undefined와 null만 할당하고 함수에는 리턴 값을 설정할 수 없는 타입이다.   
    
 - Never: 특정 값이 절대 발생할 수 없을 때 사용한다.
+   
+### 인터페이스
+인터페이스는 타입을 정의한 규칙을 의미한다.   
+   
+```javascript
+interface User {
+ age: number;
+ name: string;
+}
+```   
+   
+- 변수와 함수에 활용한 인터페이스
+```javascript
+var person: User = {
+ age: 30,
+ name: 'aa'
+}
+
+function getUser(user: User) {
+ console.log(user);
+}
+```   
+   
+- 인덱싱
+```javascript
+interface StringArray {
+ [index: number]: string;
+}
+
+var arr: StringArray = ['a', 'b', 'c'];
+arr[0] = 10 //Error;
+```   
+   
+- 딕셔너리 패턴
+```javascript
+interface StringRegexDictionary {
+ [key: string]: RegExp
+}
+
+var obj: StringRegexDictionary = {
+ cssFile: /\.css$/,
+ jsFile: 'a' //Error
+}
+
+obj['cssFile'] = /\.css$/;
+obj['jsFile'] = 'a' //Error
+```   
+   
+- 인터페이스 확장
+```javascript
+interface Person{
+ name: string;
+ age: number;
+}
+
+interface User extends Person{
+ language: string;
+}
+```
+   
+### 오퍼레이터
+- Union 타입: 자바스크립트의 OR 연산자와 같은 의미의 타입이다.   
+Union 타입으로 지정하면 각 타입의 공통된(보장된) 속성에만 접근 가능하다.   
+   
+```javascript
+function askSomeone(someone: Developer2 | Person) {
+ console.log(someone);
+}
+```   
+   
+- Intersection 타입: 자바스크립트의 AND 연산자와 같은 의미의  타입이다.   
+각각의 모든 타입이 포함된 객체를 넘기지 않으면 에러가 발생한다.   
+   
+```javascript
+function askSomeone(someone: Developer & Person) {
+ console.log(someone);
+}
+```
+   
+### 제네릭
+한 가지 타입보다 여러 가지 타입에서 동작하는 컴포넌트를 생성하는데 사용된다.   
+제네릭이란 타입을 마치 함수의 파라미터처럼 사용하는 것을 의미한다.   
+   
+```javascript
+function logText <T> (text: T):T {
+ return text;
+}
+
+logText<string>('aa');
+logText<number>(100);
+```
+   
+### 타입 추론
+타입 추론이란 타입스크립트가 코드를 해석하는 과정을 뜻한다.   
+   
+```javascript
+var a = true;
+
+a = 100; //Error
+```   
+   
+해당 코드는 a 변수를 Boolean 타입으로 추론했기 때문에 Number 타입을 할당하면 에러가 발생한다.   
+   
+- 가장 적절한 타입(Best Common Type): 배열에 담긴 값들을 추론하여 Union 타입으로 묶어 나가는 것을 말한다.   
+   
+```javascript
+var arr = [1, 2, true];
+```   
+   
+타입스크립트는 해당 코드의 타입을 Number | Boolean으로 정의한다.   
+   
+- 인터페이스와 제네릭을 이용한 타입 추론 방식
+```javascript
+interface Dropdown<T>{
+ value: T,
+ text: 'String'
+}
+
+var items: Dropdown<boolean> {
+ value: true,
+ text: 'aa'
+}
+```
+   
+### 타입 단언
+타입 단언이란 타입스크립트가 해석하는 것보다 더 확실한 목적을 가지고 개발자가 해당 코드에 타입을 직접 지정하는 것을 의미한다.   
+   
+```javascript
+var a;
+a = 10;
+a = 'string';
+var b = a as string;
+```   
+   
+이는 DOM API 조작에서 많이 사용한다.   
+   
+```javascript
+// 타입추론 시 HTMLDivElementㅣnull로 반환
+var div = document.querySelector('div') as HTMLDivElement;
+div.innerText;
+```   
+   
+위의 타입 단언으로 null을 대비한 분기문을 작성하지 않아도 된다.
+   
+### 타입 호환
+타입 호환이란 특정 타입이 다른 타입에 잘 호환되는지를 의미한다.   
+   
+- 구조적 타이핑: 코드 구조 관점에서 타입이 서로 호환되는지를 판단하는 것이다.   
+구조적으로 더 큰 타입은 작은 타입을 호환할 수 없다.   
+   
+```javascript
+interface Developer {
+ name: string;
+ age: string;
+}
+interface Person {
+ name: string;
+}
+
+var developer: Developer;
+var person: Person;
+
+developer = person; //Error
+person = developer;
+```
