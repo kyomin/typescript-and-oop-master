@@ -51,6 +51,32 @@ class App {
 			TextSectionInput,
 			(input: TextSectionInput) => new TodoComponent(input.title, input.body)
 		);
+
+		// For Demo
+		this.page.addChild(
+			new ImageComponent('Image Title', 'https://picsum.photos/800/400')
+		);
+		this.page.addChild(
+			new VideoComponent('Video Title', 'https://youtu.be/5NygNkzUhhE')
+		);
+		this.page.addChild(
+			new NoteComponent('Note Title', 'TypeScript is funny')
+		);
+		this.page.addChild(
+			new TodoComponent('Todo Title', 'Study TypeScript')
+		);
+		this.page.addChild(
+			new ImageComponent('Image Title', 'https://picsum.photos/800/400')
+		);
+		this.page.addChild(
+			new VideoComponent('Video Title', 'https://youtu.be/5NygNkzUhhE')
+		);
+		this.page.addChild(
+			new NoteComponent('Note Title', 'TypeScript is funny')
+		);
+		this.page.addChild(
+			new TodoComponent('Todo Title', 'Study TypeScript')
+		);
 	}
 
 	// (MediaData | TextData) & Component의 규격을 만족하면 어떤 것이라도 받도록 T를 제한한다.
