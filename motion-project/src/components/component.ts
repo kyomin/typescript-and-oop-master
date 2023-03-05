@@ -1,6 +1,7 @@
 export interface Component {
-	attatchTo(parent: HTMLElement, position?: InsertPosition): void;
+	attachTo(parent: HTMLElement, position?: InsertPosition): void;
 	removeFrom(parant: HTMLElement): void;
+	attach(component: Component, position?: InsertPosition): void;
 }
 
 /**
@@ -14,7 +15,7 @@ export class BaseComponent<T extends HTMLElement> implements Component {
 		this.element = template.content.firstElementChild! as T;
 	}
 
-	attatchTo(parent: HTMLElement, position: InsertPosition = 'afterbegin') {
+	attachTo(parent: HTMLElement, position: InsertPosition = 'afterbegin') {
 		parent.insertAdjacentElement(position, this.element);
 	}
 
@@ -23,5 +24,9 @@ export class BaseComponent<T extends HTMLElement> implements Component {
 			throw new Error('Parent mismatch!');
 		}
 		parent.removeChild(this.element);
+	}
+
+	attach(component: Component, position: InsertPosition = 'afterbegin') {
+		component.attachTo(this.element, position);
 	}
 }

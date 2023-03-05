@@ -26,7 +26,7 @@ class App {
 	constructor(appRoot: HTMLElement, private dialogRoot: HTMLElement) {
 		// For Page
 		this.page = new PageComponent(PageItemComponent);
-		this.page.attatchTo(appRoot);
+		this.page.attachTo(appRoot);
 
 		this.bindElementToDialog<MediaSectionInput>(
 			'#new-image',
@@ -91,7 +91,7 @@ class App {
 			const dialog = new InputDialog();
 			const input = new InputComponent();
 			dialog.addChild(input);
-			dialog.attatchTo(this.dialogRoot);
+			dialog.attachTo(this.dialogRoot);
 
 			dialog.setOnCloseListener(() => {
 				dialog.removeFrom(this.dialogRoot);
