@@ -351,3 +351,6 @@ var person: Person;
 developer = person; //Error
 person = developer;
 ```
+   
+# 관련 교육 수료증
+![Certificate-typescript-1](https://user-images.githubusercontent.com/46395776/222965650-00bf6142-fa05-4cef-bf3b-b610950b008a.png)
